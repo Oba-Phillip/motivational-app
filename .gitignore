@@ -1,0 +1,62 @@
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.*.local
+
+# But allow the example template
+!.env.example
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Railway specific
+.railway/
+railway-deploy.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+error.log
+access.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Flask specific
+instance/
+.webassets-cache
+
+# OS generated files
+Desktop.ini
+ehthumbs.db
+
+# Backup files
+*.bak
+*.backup

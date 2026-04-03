@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motivation App - Railway Deployment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="container">
+    <!-- Database Status Indicator -->
+    <div class="db-status {% if db_enabled %}db-enabled{% else %}db-disabled{% endif %}">
+        {% if db_enabled %}
+            ✅ Database Connected | Saving your messages
+        {% else %}
+            ⚠️ Database Not Configured | Add PostgreSQL on Railway
+        {% endif %}
+    </div>
+    
+    <h1>💡 Motivation Generator</h1>
+    <p class="subtitle">Get inspired with personalized motivational messages</p>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Enter your name" required>
+        <button type="submit">Get Motivation 💪</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            {{ result }}
+        </div>
+    {% endif %}
+    
+    <!-- Statistics Section -->
+    {% if db_enabled and saved_count > 0 %}
+    <div class="stats">
+        📊 <strong>Community Stats:</strong> {{ saved_count }} motivational messages have been shared!
+    </div>
+    {% elif db_enabled %}
+    <div class="stats">
+        💫 Be the first to share a motivational message!
+    </div>
+    {% endif %}
+    
+    <!-- API & Deployment Information -->
+    <div class="api-info">
+        <details>
+            <summary>🔧 Developer Info (API Endpoints & Deployment)</summary>
+            <div class="api-links">
+                <h4>📡 Available API Endpoints:</h4>
+                <ul>
+                    <li><strong>GET</strong> <a href="/api/messages" target="_blank">/api/messages</a> - View all saved messages</li>
+                    <li><strong>GET</strong> <a href="/health" target="_blank">/health</a> - Health check & configuration status</li>
+                    <li><strong>GET</strong> <a href="/deploy-info" target="_blank">/deploy-info</a> - CI/CD deployment information</li>
+                    <li><strong>GET</strong> <a href="/scalability-info" target="_blank">/scalability-info</a> - Scaling recommendations</li>
+                    <li><strong>GET</strong> <a href="/motivational-messages" target="_blank">/motivational-messages</a> - All available messages</li>
+                    {% if db_enabled %}
+                    <li><strong>GET</strong> <a href="/stats" target="_blank">/stats</a> - App statistics</li>
+                    {% endif %}
+                </ul>
+                
+                <h4>🚀 Deployment Info:</h4>
+                <ul>
+                    <li><strong>Platform:</strong> Railway</li>
+                    <li><strong>CI/CD:</strong> GitHub → Auto-deploy on push</li>
+                    <li><strong>Database:</strong> {% if db_enabled %}PostgreSQL ✅{% else %}Not configured ⚠️{% endif %}</li>
+                    <li><strong>Environment:</strong> {% if debug_mode %}Development{% else %}Production{% endif %}</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <small>🚀 Deployed on Railway | 🔄 Auto-deploys from GitHub | 💾 Messages saved to PostgreSQL</small>
+    </div>
+</div>
+
+</body>
+</html>
